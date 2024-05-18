@@ -1,0 +1,83 @@
+<div class="income p-md-5 my-5 p-sm-3">
+    <section class="content-header mb-4">
+        <div class="container-fluid">
+            <h1 class="text-primary-emphasis">Доходы</h1>
+        </div>
+    </section>
+
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 row-gap-3">
+                <div class="col">
+                    <div class="card p-3 h-100 border">
+                        <div class="card-body p-0">
+                            <h3 class="text-primary-emphasis mb-3">Депозиты</h3>
+                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
+                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card p-3 h-100 border">
+                        <div class="card-body p-0">
+                            <h3 class="text-primary-emphasis mb-3">Зарплата</h3>
+                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
+                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card p-3 h-100 border">
+                        <div class="card-body p-0">
+                            <h3 class="text-primary-emphasis mb-3">Сбережения</h3>
+                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
+                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card p-3 h-100 border">
+                        <div class="card-body p-0">
+                            <h3 class="text-primary-emphasis mb-3">Инвестиции</h3>
+                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
+                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <a href="/income/create" class="card p-5 h-100 border create-btn">
+                        <div class="card-body p-0 d-flex align-items-center justify-content-center">
+                            <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path id="+"
+                                      d="M13.57 5.04L8.37 5.04L8.37 -0.49L5.15 -0.49L5.15 5.04L-0.08 5.04L-0.08 8.08L5.15 8.08L5.15 14L8.37 14L8.37 8.08L13.57 8.08L13.57 5.04Z"
+                                      fill="#CED4DA" fill-opacity="1.000000" fill-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="popup w-100 h-100 position-fixed top-0 start-0 bg-dark bg-opacity-50 d-flex align-items-center d-none">
+        <div class="container-fluid">
+            <div class="row h-100 justify-content-center">
+                <div class="w-auto">
+                    <div class="card p-4 h-100 border">
+                        <div class="card-body p-md-3 p-0">
+                            <p class="text-primary-emphasis text-center fw-medium fs-5 lh-sm mb-3">
+                                Вы действительно хотите удалить категорию? <br>
+                                Связанные доходы будут удалены навсегда.
+                            </p>
+                            <div class="text-center">
+                                <a href="" class="btn btn-success me-2 mt-1 fw-medium text-small" id="confirm">Да,
+                                    удалить</a>
+                                <a href="" class="btn btn-danger fw-medium text-small mt-1" id="cancel">Не удалять</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<main class="login d-flex align-items-center h-100">
+    <section class="form-login w-100 m-auto p-3">
+        <div class="logo mx-auto mb-sm-5 mb-3">
+            <img src="/img/Logo.png" alt="Логотип">
+        </div>
+        <h1 class="fw-medium fs-1 text-center text-primary-emphasis mb-3">Вход</h1>
+        <div id="common-error" class="error invalid-feedback text-center mb-2">Неправильный email или пароль</div>
+        <form>
+            <div class="input-group mb-2">
+                <div class="input-group-text bg-body-secondary">
+                    <img src="/img/email.svg" alt="Электронная почта">
+                </div>
+                <input type="email" class="form-control rounded-end text-secondary is-invalid"
+                       placeholder="Электронная почта" id="email">
+                <span id="email-error" class="error invalid-feedback">Введите корректную электронную почту</span>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-text bg-body-secondary">
+                    <img src="/img/lock.svg" alt="Пароль">
+                </div>
+                <input type="password" class="form-control rounded-end text-secondary" placeholder="Пароль"
+                       id="password">
+                <span id="password-error" class="error invalid-feedback">Введите корректный пароль</span>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="remember-me" id="remember-me">
+                <label class="form-check-label" for="remember-me">
+                    Запомнить меня
+                </label>
+            </div>
+            <button type="button" class="btn btn-primary w-100 mb-3">Войти</button>
+        </form>
+        <div>
+            <span>Ещё нет аккаунта?</span>
+            <a href="/sign-up">
+                Пройдите регистрацию
+            </a>
+        </div>
+    </section>
+
+</main>
