@@ -2,7 +2,8 @@
     <nav class="navbar navbar-expand-md p-0">
         <div id="sidebar" class="offcanvas h-100 d-flex">
             <aside class="sidebar border-end h-100 d-flex flex-column flex-shrink-0">
-                <button type="button" class="btn-close position-absolute d-md-none p-3 border-0 shadow-none" data-bs-dismiss="offcanvas"></button>
+                <button type="button" class="btn-close position-absolute d-md-none p-3 border-0 shadow-none"
+                        data-bs-dismiss="offcanvas"></button>
                 <a href="/" class="logo d-flex align-items-center pt-4 pb-2 mx-auto link-dark text-decoration-none">
                     <img src="/img/Logo.png" alt="Логотип">
                 </a>
@@ -22,7 +23,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/operations" class="nav-link text-small text-primary-emphasis d-flex align-items-center gap-2">
+                        <a href="/operations"
+                           class="nav-link text-small text-primary-emphasis d-flex align-items-center gap-2">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg"
                                  xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -37,7 +39,8 @@
                     <li class="nav-item">
                         <a href="javascript:void(0);"
                            class="category text-small nav-link text-primary-emphasis d-flex gap-2 align-items-center justify-content-between collapsed"
-                           id="category" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="false">
+                           id="category" data-bs-toggle="collapse" data-bs-target="#category-collapse"
+                           aria-expanded="false">
                             Категории
                             <svg width="7" height="13" viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg"
                                  xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -50,27 +53,32 @@
                         <div class="collapse" id="category-collapse">
                             <ul class="nav nav-pills flex-column">
                                 <li class="nav-item">
-                                    <a href="/income" class="sub-category border border-primary nav-link text-small rounded-0">Доходы</a>
+                                    <a href="/income"
+                                       class="sub-category border border-primary nav-link text-small rounded-0">Доходы</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/expense" class="sub-category border border-top-0 border-primary rounded-bottom nav-link text-small rounded-top-0">Расходы</a>
+                                    <a href="/expense"
+                                       class="sub-category border border-top-0 border-primary rounded-bottom nav-link text-small rounded-top-0">Расходы</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                 </ul>
-                <p class="mt-auto mb-0 text-primary-emphasis text-small ps-3 pb-3 fw-medium">Баланс: <span
-                        class="text-primary">500$</span>
-                </p>
-                <div class="dropup border-top p-3 pt-4">
-                    <a href="javascript:void(0);" class="d-flex align-items-center gap-3 link-dark text-decoration-none"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/img/avatar.svg" alt="" width="36" height="36" class="rounded-circle">
-                        <span class="text-small text-primary-emphasis">RomanChernov</span>
-                    </a>
-                    <ul class="dropdown-menu text-small shadow">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Выйти</a></li>
-                    </ul>
+                <div class="position-fixed bottom-0 profile-element">
+                    <p class="mt-auto mb-0 text-primary-emphasis text-small ps-3 pb-3 fw-medium">Баланс: <span
+                            class="text-primary">500$</span>
+                    </p>
+                    <div class="dropup border-top p-3 pt-4">
+                        <a href="javascript:void(0);"
+                           class="d-flex align-items-center gap-3 link-dark text-decoration-none"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/img/avatar.svg" alt="" width="36" height="36" class="rounded-circle">
+                            <span class="text-small text-primary-emphasis">RomanChernov</span>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow">
+                            <li><a class="dropdown-item" href="javascript:void(0);">Выйти</a></li>
+                        </ul>
+                    </div>
                 </div>
             </aside>
         </div>
