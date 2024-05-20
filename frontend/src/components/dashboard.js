@@ -14,7 +14,6 @@ export class Dashboard {
                     'Blue'
                 ],
                 datasets: [{
-                    label: 'My First Dataset',
                     data: [300, 50, 100, 200, 30],
                     backgroundColor: [
                         'rgb(220, 53, 69)',
@@ -32,10 +31,6 @@ export class Dashboard {
                     legend: {
                         position: 'top',
                         padding: 15
-                    },
-                    title: {
-                        display: true,
-                        text: 'Chart.js Pie Chart'
                     }
                 }
             }
@@ -51,7 +46,6 @@ export class Dashboard {
                     'Blue'
                 ],
                 datasets: [{
-                    label: 'My First Dataset',
                     data: [300, 50, 100, 200, 30],
                     backgroundColor: [
                         'rgb(220, 53, 69)',
