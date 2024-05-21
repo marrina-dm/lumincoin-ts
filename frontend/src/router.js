@@ -4,6 +4,7 @@ import {FileUtils} from "./utils/file-utils";
 import {Login} from "./components/auth/login";
 import {Signup} from "./components/auth/signup";
 import {Logout} from "./components/auth/logout";
+import {AuthUtils} from "./utils/auth-utils";
 
 export class Router {
     routes = null;
@@ -176,6 +177,9 @@ export class Router {
                 if (newRoute.useLayout) {
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById("content-layout");
+
+                    const profileName = JSON.parse(AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey));
+                    document.getElementById('profile-name').innerText = profileName.name + ' ' + profileName.lastName;
 
                     this.activateMenuItem(newRoute);
                 }
