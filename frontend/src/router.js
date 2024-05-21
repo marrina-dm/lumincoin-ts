@@ -151,6 +151,10 @@ export class Router {
                     document.querySelector(`script[src='/js/${script}']`).remove();
                 });
             }
+
+            if (document.body.getAttribute('style')) {
+                document.body.removeAttribute('style');
+            }
         }
 
         const urlRoute = window.location.pathname;
