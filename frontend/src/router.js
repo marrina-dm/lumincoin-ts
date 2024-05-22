@@ -23,7 +23,7 @@ export class Router {
                 template: '/templates/pages/dashboard.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Dashboard();
+                    new Dashboard(this.openNewRoute.bind(this));
                 },
                 scripts: [
                     'chart.umd.js'

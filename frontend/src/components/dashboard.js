@@ -1,7 +1,16 @@
 import {Chart, PieController, ArcElement, Legend} from "chart.js";
+import {AuthUtils} from "../utils/auth-utils";
 
 export class Dashboard {
-    constructor() {
+    openNewRoute = null;
+
+    constructor(openNewRoute) {
+        this.openNewRoute = openNewRoute;
+
+        if (!AuthUtils.getAuthInfo(AuthUtils.accessTokenKey)) {
+            return this.openNewRoute('/login');
+        }
+
         Chart.register(PieController, ArcElement, Legend);
         new Chart(document.getElementById('income-chart'), {
             type: 'pie',
