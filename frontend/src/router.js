@@ -1,6 +1,10 @@
 import {CommonUtils} from "./utils/common-utils";
 import {Dashboard} from "./components/dashboard";
 import {FileUtils} from "./utils/file-utils";
+import {Login} from "./components/auth/login";
+import {Signup} from "./components/auth/signup";
+import {Logout} from "./components/auth/logout";
+import {AuthUtils} from "./utils/auth-utils";
 
 export class Router {
     routes = null;
@@ -19,7 +23,7 @@ export class Router {
                 template: '/templates/pages/dashboard.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Dashboard();
+                    new Dashboard(this.openNewRoute.bind(this));
                 },
                 scripts: [
                     'chart.umd.js'
@@ -29,13 +33,25 @@ export class Router {
                 route: '/login',
                 title: 'Авторизация',
                 template: '/templates/pages/auth/login.html',
-                useLayout: false
+                useLayout: false,
+                load: () => {
+                    new Login(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/sign-up',
                 title: 'Регистрация',
                 template: '/templates/pages/auth/sign-up.html',
-                useLayout: false
+                useLayout: false,
+                load: () => {
+                    new Signup(this.openNewRoute.bind(this));
+                }
+            },
+            {
+                route: '/logout',
+                load: () => {
+                    new Logout(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/income',
@@ -123,11 +139,25 @@ export class Router {
     }
 
     async openNewRoute(url) {
+        const currentRoute = window.location.pathname;
         history.pushState(null, '', url);
-        await this.activateRoute();
+        await this.activateRoute(null, currentRoute);
     }
 
-    async activateRoute() {
+    async activateRoute(e, oldRoute) {
+        if (oldRoute) {
+            const currentRoute = this.routes.find((route) => route.route === oldRoute);
+            if (currentRoute.scripts && currentRoute.scripts.length > 0) {
+                currentRoute.scripts.forEach((script) => {
+                    document.querySelector(`script[src='/js/${script}']`).remove();
+                });
+            }
+
+            if (document.body.getAttribute('style')) {
+                document.body.removeAttribute('style');
+            }
+        }
+
         const urlRoute = window.location.pathname;
         const newRoute = this.routes.find((route) => route.route === urlRoute);
 
@@ -147,6 +177,11 @@ export class Router {
                 if (newRoute.useLayout) {
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById("content-layout");
+
+                    const profileName = JSON.parse(AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey));
+                    if (profileName) {
+                        document.getElementById('profile-name').innerText = profileName.name + ' ' + profileName.lastName;
+                    }
 
                     this.activateMenuItem(newRoute);
                 }

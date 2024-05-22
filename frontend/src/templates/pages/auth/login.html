@@ -10,7 +10,7 @@
                 <div class="input-group-text bg-body-secondary">
                     <img src="/img/email.svg" alt="Электронная почта">
                 </div>
-                <input type="email" class="form-control rounded-end text-secondary is-invalid"
+                <input type="email" class="form-control rounded-end text-secondary"
                        placeholder="Электронная почта" id="email">
                 <span id="email-error" class="error invalid-feedback">Введите корректную электронную почту</span>
             </div>
@@ -22,15 +22,15 @@
                        id="password">
                 <span id="password-error" class="error invalid-feedback">Введите корректный пароль</span>
             </div>
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" value="remember-me" id="remember-me">
-                <label class="form-check-label" for="remember-me">
+            <div class="d-flex align-items-center gap-1 mb-3">
+                <input type="checkbox" id="remember-me">
+                <label class="text-small" for="remember-me">
                     Запомнить меня
                 </label>
             </div>
-            <button type="button" class="btn btn-primary w-100 mb-3">Войти</button>
+            <button type="button" class="btn btn-primary w-100 mb-3" id="process-button">Войти</button>
         </form>
-        <div>
+        <div class="text-small">
             <span>Ещё нет аккаунта?</span>
             <a href="/sign-up">
                 Пройдите регистрацию

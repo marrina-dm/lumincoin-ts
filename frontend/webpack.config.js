@@ -58,7 +58,6 @@ module.exports = {
                 {from: "./node_modules/bootstrap/dist/css/bootstrap.min.css", to: "css"},
                 {from: "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js", to: "js"},
                 {from: "./node_modules/chart.js/dist/chart.umd.js", to: "js"},
-                {from: "./node_modules/chart.js/dist/controllers/controller.pie.d.ts", to: "js"},
             ],
         })
     ],

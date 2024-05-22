@@ -13,8 +13,15 @@
                 <div class="input-group-text bg-body-secondary">
                     <img src="/img/person.svg" alt="ФИО">
                 </div>
-                <input type="text" class="form-control rounded-end text-secondary" placeholder="ФИО" id="name">
-                <span id="name-error" class="error invalid-feedback">Введите ФИО</span>
+                <input type="text" class="form-control rounded-end text-secondary" placeholder="Имя" id="name">
+                <span id="name-error" class="error invalid-feedback">Имя должно начинаться с заглавной буквы и иметь только русские символы</span>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-text bg-body-secondary">
+                    <img src="/img/person.svg" alt="ФИО">
+                </div>
+                <input type="text" class="form-control rounded-end text-secondary" placeholder="Фамилия" id="last-name">
+                <span id="last-name-error" class="error invalid-feedback">Фамилия должна начинаться с заглавной буквы и иметь только русские символы</span>
             </div>
             <div class="input-group mb-2">
                 <div class="input-group-text bg-body-secondary">
@@ -40,9 +47,9 @@
                        placeholder="Подтверждение пароля" id="repeat-password">
                 <span id="repeat-password-error" class="error invalid-feedback">Повторите пароль</span>
             </div>
-            <button type="button" class="btn btn-primary w-100 mb-3">Войти</button>
+            <button type="button" class="btn btn-primary w-100 mb-3" id="process-button">Войти</button>
         </form>
-        <div>
+        <div class="text-small">
             <span>Уже есть аккаунт?</span>
             <a href="/login">
                 Войдите в систему

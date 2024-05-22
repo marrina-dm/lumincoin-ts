@@ -8,10 +8,11 @@
     <section class="content mt-3">
         <div class="container-fluid">
             <div class="pb-4">
-                <a href="/operations/create?type=income" class="btn btn-success me-2 fw-medium text-small">Создать доход</a>
+                <a href="/operations/create?type=income" class="btn btn-success me-2 fw-medium text-small">Создать
+                    доход</a>
                 <a href="/operations/create?type=expense" class="btn btn-danger fw-medium text-small">Создать расход</a>
             </div>
-            <div class="pt-3 pb-4 d-flex align-items-center" role="group">
+            <div class="pt-3 pb-4 d-flex align-items-center filter" role="group">
                 <input type="radio" class="btn-check" name="filter" id="today" autocomplete="off" checked>
                 <label class="btn btn-outline-secondary me-3 filter-btn" for="today">Сегодня</label>
 
@@ -35,57 +36,59 @@
                                                                                           class="link-secondary link-offset-2 mx-3">Дата</a>
                 </div>
             </div>
-            <table class="table mt-3 border-top text-center table-responsive">
-                <thead>
-                <tr>
-                    <th scope="col" class="text-primary-emphasis" style="width: 135px;">№ операции</th>
-                    <th scope="col" class="text-primary-emphasis">Тип</th>
-                    <th scope="col" class="text-primary-emphasis">Категория</th>
-                    <th scope="col" class="text-primary-emphasis">Сумма</th>
-                    <th scope="col" class="text-primary-emphasis">Дата</th>
-                    <th scope="col" class="text-primary-emphasis">Комментарий</th>
-                    <th scope="col" class="text-primary-emphasis"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td class="text-success">доход</td>
-                    <td>зарплата</td>
-                    <td>500$</td>
-                    <td>11.09.2022</td>
-                    <td></td>
-                    <td>
-                        <div class="operations-tools">
-                            <a href="">
-                                <img src="/img/trash.svg" alt="">
-                            </a>
-                            <a href="">
-                                <img src="/img/pen.svg" alt="">
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td class="text-danger">расход</td>
-                    <td>жильё</td>
-                    <td>2 500$</td>
-                    <td>12.09.2022</td>
-                    <td></td>
-                    <td>
-                        <div class="operations-tools">
-                            <a href="">
-                                <img src="/img/trash.svg" alt="">
-                            </a>
-                            <a href="">
-                                <img src="/img/pen.svg" alt="">
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table mt-3 border-top text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-primary-emphasis" style="width: 135px;">№ операции</th>
+                        <th scope="col" class="text-primary-emphasis">Тип</th>
+                        <th scope="col" class="text-primary-emphasis">Категория</th>
+                        <th scope="col" class="text-primary-emphasis">Сумма</th>
+                        <th scope="col" class="text-primary-emphasis">Дата</th>
+                        <th scope="col" class="text-primary-emphasis">Комментарий</th>
+                        <th scope="col" class="text-primary-emphasis"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td class="text-success">доход</td>
+                        <td>зарплата</td>
+                        <td>500$</td>
+                        <td>11.09.2022</td>
+                        <td></td>
+                        <td>
+                            <div class="operations-tools">
+                                <a href="">
+                                    <img src="/img/trash.svg" alt="">
+                                </a>
+                                <a href="">
+                                    <img src="/img/pen.svg" alt="">
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td class="text-danger">расход</td>
+                        <td>жильё</td>
+                        <td>2 500$</td>
+                        <td>12.09.2022</td>
+                        <td></td>
+                        <td>
+                            <div class="operations-tools">
+                                <a href="">
+                                    <img src="/img/trash.svg" alt="">
+                                </a>
+                                <a href="">
+                                    <img src="/img/pen.svg" alt="">
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
     <div class="popup w-100 h-100 position-fixed top-0 start-0 bg-dark bg-opacity-50 d-flex align-items-center d-none">

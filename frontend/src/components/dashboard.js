@@ -1,7 +1,16 @@
 import {Chart, PieController, ArcElement, Legend} from "chart.js";
+import {AuthUtils} from "../utils/auth-utils";
 
 export class Dashboard {
-    constructor() {
+    openNewRoute = null;
+
+    constructor(openNewRoute) {
+        this.openNewRoute = openNewRoute;
+
+        if (!AuthUtils.getAuthInfo(AuthUtils.accessTokenKey)) {
+            return this.openNewRoute('/login');
+        }
+
         Chart.register(PieController, ArcElement, Legend);
         new Chart(document.getElementById('income-chart'), {
             type: 'pie',
@@ -14,7 +23,6 @@ export class Dashboard {
                     'Blue'
                 ],
                 datasets: [{
-                    label: 'My First Dataset',
                     data: [300, 50, 100, 200, 30],
                     backgroundColor: [
                         'rgb(220, 53, 69)',
@@ -32,10 +40,6 @@ export class Dashboard {
                     legend: {
                         position: 'top',
                         padding: 15
-                    },
-                    title: {
-                        display: true,
-                        text: 'Chart.js Pie Chart'
                     }
                 }
             }
@@ -51,7 +55,6 @@ export class Dashboard {
                     'Blue'
                 ],
                 datasets: [{
-                    label: 'My First Dataset',
                     data: [300, 50, 100, 200, 30],
                     backgroundColor: [
                         'rgb(220, 53, 69)',
