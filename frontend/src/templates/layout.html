@@ -66,7 +66,7 @@
                 </ul>
                 <div class="position-fixed bottom-0 profile-element">
                     <p class="mt-auto mb-0 text-primary-emphasis text-small ps-3 pb-3 fw-medium">Баланс: <span
-                            class="text-primary">500$</span>
+                            class="text-primary" id="balance"></span>
                     </p>
                     <div class="dropup border-top p-3 pt-4">
                         <a href="javascript:void(0);"
@@ -83,6 +83,27 @@
             </aside>
         </div>
     </nav>
+    <div class="popup w-100 h-100 position-fixed z-3 top-0 start-0 bg-dark bg-opacity-50 d-flex align-items-center d-none" id="balance-popup">
+        <div class="container-fluid">
+            <div class="row h-100 justify-content-center">
+                <div class="w-auto">
+                    <div class="card p-4 h-100 border">
+                        <div class="card-body p-md-3 p-0">
+                            <p class="text-primary-emphasis text-center fw-medium fs-5 lh-sm mb-2">
+                                Введите новое значение баланса
+                            </p>
+                            <input type="text" class="form-control" id="balanceInput" placeholder="Баланс">
+                            <span id="balanceInput-error" class="error invalid-feedback">Введите значение</span>
+                            <div class="text-center mt-3">
+                                <a href="" class="btn btn-success me-2 mt-1 fw-medium text-small" id="confirm">Сохранить</a>
+                                <a href="" class="btn btn-danger fw-medium text-small mt-1" id="cancel">Отмена</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="wrapper-content w-100 position-relative">
         <nav class="navbar d-md-none position-absolute p-2 ps-sm-4">

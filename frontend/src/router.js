@@ -5,6 +5,7 @@ import {Login} from "./components/auth/login";
 import {Signup} from "./components/auth/signup";
 import {Logout} from "./components/auth/logout";
 import {AuthUtils} from "./utils/auth-utils";
+import {Layout} from "./components/layout";
 
 export class Router {
     routes = null;
@@ -183,6 +184,7 @@ export class Router {
                         document.getElementById('profile-name').innerText = profileName.name + ' ' + profileName.lastName;
                     }
 
+                    new Layout(this.openNewRoute.bind(this));
                     this.activateMenuItem(newRoute);
                 }
                 contentBlock.innerHTML = await fetch(newRoute.template).then(response => response.text());
