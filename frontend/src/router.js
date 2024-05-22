@@ -179,7 +179,9 @@ export class Router {
                     contentBlock = document.getElementById("content-layout");
 
                     const profileName = JSON.parse(AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey));
-                    document.getElementById('profile-name').innerText = profileName.name + ' ' + profileName.lastName;
+                    if (profileName) {
+                        document.getElementById('profile-name').innerText = profileName.name + ' ' + profileName.lastName;
+                    }
 
                     this.activateMenuItem(newRoute);
                 }
