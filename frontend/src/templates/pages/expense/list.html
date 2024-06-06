@@ -7,89 +7,8 @@
 
     <section class="content mt-3">
         <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 row-gap-3">
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Еда</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Жильё</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Здоровье</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Кафе</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Авто</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Одежда</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Развлечения</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Счета</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 h-100 border">
-                        <div class="card-body p-0">
-                            <h3 class="text-primary-emphasis mb-3">Спорт</h3>
-                            <a href="" class="btn btn-primary me-2 mb-2 fw-medium text-small edit-link">Редактировать</a>
-                            <a href="" class="btn btn-danger fw-medium mb-2 text-small delete-link">Удалить</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 row-gap-3" id="categories-list">
+                <div class="col" id="addCategory">
                     <a href="/expense/create" class="card p-5 h-100 border create-btn">
                         <div class="card-body p-0 d-flex align-items-center justify-content-center">
                             <svg width="14" height="15" viewBox="0 0 14 15" fill="none"
@@ -104,7 +23,7 @@
             </div>
         </div>
     </section>
-    <div class="popup w-100 h-100 position-fixed top-0 start-0 bg-dark bg-opacity-50 d-flex align-items-center d-none">
+    <div class="popup w-100 h-100 position-fixed top-0 start-0 bg-dark bg-opacity-50 d-flex align-items-center d-none" id="delete-popup">
         <div class="container-fluid">
             <div class="row h-100 justify-content-center">
                 <div class="w-auto">
@@ -114,9 +33,9 @@
                                 Вы действительно хотите удалить категорию?
                             </p>
                             <div class="text-center">
-                                <a href="" class="btn btn-success me-2 mt-1 fw-medium text-small" id="confirm">Да,
+                                <a href="" class="btn btn-success me-2 mt-1 fw-medium text-small" id="confirm-delete">Да,
                                     удалить</a>
-                                <a href="" class="btn btn-danger fw-medium text-small mt-1" id="cancel">Не удалять</a>
+                                <a href="" class="btn btn-danger fw-medium text-small mt-1" id="cancel-delete">Не удалять</a>
                             </div>
                         </div>
                     </div>

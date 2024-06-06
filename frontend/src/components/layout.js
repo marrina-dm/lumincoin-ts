@@ -36,10 +36,13 @@ export class Layout {
     }
 
     async getBalance() {
-        const balanceResult = await BalanceService.getBalance();
-        if (balanceResult) {
-            this.balanceElement.innerText = balanceResult.balance + '$';
+        const response = await BalanceService.getBalance();
+        if (response.error) {
+            alert(response.error);
+            return response.redirect ? this.openNewRoute(response.redirect) : null;
         }
+
+        this.showBalance(response.balance);
     }
 
     async updateBalance() {
@@ -48,15 +51,21 @@ export class Layout {
         ];
 
         if (ValidationUtils.validateForm(validations)) {
-            const balanceResult = await BalanceService.updateBalance({
+            const response = await BalanceService.updateBalance({
                 "newBalance": this.balanceInput.value
             });
 
-            if (balanceResult) {
-                this.balanceElement.innerText = balanceResult.balance + '$';
+            if (response.error) {
+                alert(response.error);
+                return response.redirect ? this.openNewRoute(response.redirect) : null;
             }
 
+            this.showBalance(response.balance);
             this.balancePopupElement.classList.add("d-none");
         }
+    }
+
+    showBalance(balance) {
+        this.balanceElement.innerText = balance + '$';
     }
 }
