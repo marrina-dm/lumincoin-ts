@@ -18,11 +18,7 @@
             </div>
             <div class="form-group row mb-3">
                 <div class="col-xl-4 col-md-7 col-sm-9">
-                    <select class="form-control" id="categorySelect">
-                        <option value="" disabled selected>Категория...</option>
-                        <option value="id">Депозиты</option>
-                        <option value="id">Зарплата</option>
-                    </select>
+                    <select class="form-control" id="categorySelect"></select>
                     <span id="categorySelect-error" class="error invalid-feedback">Выберите категорию</span>
                 </div>
             </div>
@@ -45,7 +41,7 @@
             </div>
             <div class="form-group mt-1">
                 <button class="btn btn-success me-2" id="saveButton" type="button">Сохранить</button>
-                <button class="btn btn-danger" id="cancelButton" type="button">Отмена</button>
+                <a href="/operations" class="btn btn-danger" id="cancelButton" type="button">Отмена</a>
             </div>
         </div>
     </section>

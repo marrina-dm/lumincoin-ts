@@ -8,4 +8,12 @@ export class FileUtils {
             document.body.appendChild(script);
         });
     }
+
+    static loadPageStyle(src) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = src;
+        document.head.appendChild(link);
+    }
 }

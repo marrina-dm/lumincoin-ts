@@ -21,12 +21,16 @@
   gap: 10px;
 }
 
+.interval-link:disabled {
+  cursor: not-allowed;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  width: 247px!important;
+}
+
 @media (max-width: 768px) {
   .filter {
     overflow-x: scroll;
-  }
-
-  #income-chart {
-    border-right: 0 !important;
   }
 }

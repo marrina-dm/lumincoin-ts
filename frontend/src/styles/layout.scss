@@ -35,6 +35,10 @@
   height: 100% !important;
 }
 
+#balance {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 424px) {
   .sidebar,
   .profile-element {

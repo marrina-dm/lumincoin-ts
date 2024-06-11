@@ -43,7 +43,7 @@ export class HttpUtils {
                 if (!token) {
                     result.redirect = "/login";
                 } else {
-                    const updateTokenResult = await  AuthUtils.updateRefreshToken();
+                    const updateTokenResult = await AuthUtils.updateRefreshToken();
                     if (updateTokenResult) {
                         return this.request(url, method, useAuth, body);
                     } else {

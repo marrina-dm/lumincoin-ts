@@ -1,18 +1,19 @@
-import {Chart, PieController, ArcElement, Legend, Colors, Tooltip} from "chart.js";
-import {AuthUtils} from "../utils/auth-utils";
-import moment from "moment/moment";
-import {ValidationUtils} from "../utils/validation-utils";
-import {OperationsService} from "../services/operations-service";
+import moment from "moment";
+import {ValidationUtils} from "../../utils/validation-utils";
+import {OperationsService} from "../../services/operations-service";
+import {AuthUtils} from "../../utils/auth-utils";
+import config from "../../config/config";
 
-export class Dashboard {
+export class OperationsList {
     calendarFromElement = null;
     linkFromElement = null;
     calendarToElement = null;
     linkToElement = null;
     validations = null;
+    popupElement = null;
+    confirmBtn = null;
+    cancelBtn = null;
     openNewRoute = null;
-    incomeChart = null;
-    expenseChart = null;
 
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
@@ -21,16 +22,16 @@ export class Dashboard {
             return this.openNewRoute('/login');
         }
 
-        this.openNewRoute = openNewRoute;
-        Chart.register(PieController, ArcElement, Legend, Colors, Tooltip);
-
         this.findElements();
         this.initCalendar();
-        this.initPie();
         this.validations = [
             {element: this.calendarFromElement},
             {element: this.calendarToElement}
         ];
+
+        this.cancelBtn.addEventListener('click', () => {
+            this.popupElement.classList.add("d-none");
+        });
 
         this.getOperations({period: 'today'}).then();
         this.initFilter();
@@ -39,7 +40,9 @@ export class Dashboard {
     findElements() {
         this.calendarFromElement = document.getElementById("calendar-from");
         this.linkFromElement = document.getElementById('from');
-
+        this.popupElement = document.getElementById('delete-popup');
+        this.confirmBtn = document.getElementById('confirm-delete');
+        this.cancelBtn = document.getElementById('cancel-delete');
         this.calendarToElement = document.getElementById("calendar-to");
         this.linkToElement = document.getElementById('to');
     }
@@ -92,58 +95,6 @@ export class Dashboard {
         });
     }
 
-    initPie() {
-        this.incomeChart = new Chart(document.getElementById('income-chart'), {
-            type: 'pie',
-            data: {
-                labels: [
-                    'Нет данных',
-                ],
-                datasets: [{
-                    data: [1],
-                    hoverOffset: 1
-                }],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        padding: 15
-                    },
-                    colors: {
-                        forceOverride: true
-                    }
-                }
-            }
-        });
-
-        this.expenseChart = new Chart(document.getElementById('expense-chart'), {
-            type: 'pie',
-            data: {
-                labels: [
-                    'Нет данных',
-                ],
-                datasets: [{
-                    data: [1],
-                    hoverOffset: 1
-                }],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        padding: 15
-                    },
-                    colors: {
-                        forceOverride: true
-                    }
-                }
-            }
-        });
-    }
-
     initFilter() {
         this.linkFromElement.disabled = true;
         this.linkToElement.disabled = true;
@@ -184,34 +135,70 @@ export class Dashboard {
     }
 
     showOperations(operations) {
-        const incomeData = operations.filter(op => op.type === 'income');
-        const expenseData = operations.filter(op => op.type === 'expense');
+        const table = document.getElementById('records');
+        table.innerHTML = "";
+        for (let i = 0; i < operations.length; i++) {
+            const trElement = document.createElement('tr');
 
-        this.updateChart(incomeData, this.incomeChart);
-        this.updateChart(expenseData, this.expenseChart);
+            const thElement = document.createElement('th');
+            thElement.scope = 'row';
+            thElement.innerText = i + 1;
+
+            const typeOperation = document.createElement('td');
+            typeOperation.className = operations[i].type === config.typeOperation.income ? 'text-success' : 'text-danger';
+            typeOperation.innerText = operations[i].type === config.typeOperation.income ? 'доход' : 'расход';
+
+            const categoryElement = document.createElement('td');
+            categoryElement.innerText = operations[i].category;
+
+            const amountElement = document.createElement('td');
+            amountElement.innerText = operations[i].amount + '$';
+
+            const dateElement = document.createElement('td');
+            dateElement.innerText = new Date(operations[i].date).toLocaleDateString();
+
+            trElement.appendChild(thElement);
+            trElement.appendChild(typeOperation);
+            trElement.appendChild(categoryElement);
+            trElement.appendChild(amountElement);
+            trElement.appendChild(dateElement);
+
+            const commentElement = document.createElement('td');
+            commentElement.innerText = operations[i].comment ? operations[i].comment : '';
+            trElement.appendChild(commentElement);
+
+            const tdElement = document.createElement('td');
+
+            const tools = document.createElement('div');
+            tools.className = 'operations-tools';
+
+            const linkDelete = document.createElement('a');
+            linkDelete.style.cursor = 'pointer';
+            linkDelete.addEventListener('click', () => {
+                this.popupElement.classList.remove('d-none');
+                this.deleteOperation(operations[i].id);
+            });
+
+            const imageTrash = document.createElement('img');
+            imageTrash.src = '/img/trash.svg';
+            linkDelete.appendChild(imageTrash);
+
+            const linkEdit = document.createElement('a');
+            linkEdit.href = '/operations/edit?id=' + operations[i].id;
+
+            const imagePen = document.createElement('img');
+            imagePen.src = '/img/pen.svg';
+            linkEdit.appendChild(imagePen);
+
+            tools.appendChild(linkDelete);
+            tools.appendChild(linkEdit);
+            tdElement.appendChild(tools);
+            trElement.appendChild(tdElement);
+            table.appendChild(trElement);
+        }
     }
 
-    updateChart(data, element) {
-        if (data.length > 0) {
-            let categories = [];
-            let amount = [];
-
-            for (let i = 0; i < data.length; i++) {
-                categories.push(data[i].category);
-            }
-            categories = categories.filter((item, i, ar) => ar.indexOf(item) === i);
-
-            element.data.labels = categories;
-
-            for (let i = 0; i < categories.length; i++) {
-                const sum = data.filter(item => item.category === categories[i]).map(item => item.amount).reduce((acc, item) => acc + item);
-                amount.push(sum);
-            }
-
-
-
-            element.data.datasets[0].data = amount;
-            element.update();
-        }
+    deleteOperation(id) {
+        this.confirmBtn.href = '/operations/delete?id=' + id;
     }
 }

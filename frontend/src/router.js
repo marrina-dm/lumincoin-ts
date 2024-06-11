@@ -5,6 +5,19 @@ import {Login} from "./components/auth/login";
 import {Signup} from "./components/auth/signup";
 import {Logout} from "./components/auth/logout";
 import {AuthUtils} from "./utils/auth-utils";
+import {Layout} from "./components/layout";
+import {IncomeList} from "./components/income/income-list";
+import {IncomeDelete} from "./components/income/income-delete";
+import {IncomeCreate} from "./components/income/income-create";
+import {IncomeEdit} from "./components/income/income-edit";
+import {ExpenseList} from "./components/expense/expense-list";
+import {ExpenseDelete} from "./components/expense/expense-delete";
+import {ExpenseCreate} from "./components/expense/expense-create";
+import {ExpenseEdit} from "./components/expense/expense-edit";
+import {OperationsList} from "./components/operations/operations-list";
+import {OperationsDelete} from "./components/operations/operations-delete";
+import {OperationsEdit} from "./components/operations/operations-edit";
+import {OperationsCreate} from "./components/operations/operations-create";
 
 export class Router {
     routes = null;
@@ -26,7 +39,15 @@ export class Router {
                     new Dashboard(this.openNewRoute.bind(this));
                 },
                 scripts: [
+                    'jquery.min.js',
+                    'moment.js',
+                    'moment-ru-locale.js',
+                    'tempusdominus-bootstrap-4.min.js',
                     'chart.umd.js'
+                ],
+                styles: [
+                    'all.min.css',
+                    'tempusdominus-bootstrap-4.min.css'
                 ]
             },
             {
@@ -57,55 +78,110 @@ export class Router {
                 route: '/income',
                 title: 'Доходы',
                 template: '/templates/pages/income/list.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeList(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/income/create',
                 title: 'Создание категории доходов',
                 template: '/templates/pages/income/create.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeCreate(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/income/edit',
                 title: 'Редактирование категории доходов',
                 template: '/templates/pages/income/edit.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeEdit(this.openNewRoute.bind(this));
+                }
+            },
+            {
+                route: '/income/delete',
+                load: () => {
+                    new IncomeDelete(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/expense',
                 title: 'Расходы',
                 template: '/templates/pages/expense/list.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpenseList(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/expense/create',
                 title: 'Создание категории расходов',
                 template: '/templates/pages/expense/create.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpenseCreate(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/expense/edit',
                 title: 'Редактирование категории расходов',
                 template: '/templates/pages/expense/edit.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpenseEdit(this.openNewRoute.bind(this));
+                }
+            },
+            {
+                route: '/expense/delete',
+                load: () => {
+                    new ExpenseDelete(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/operations',
                 title: 'Доходы и расходы',
                 template: '/templates/pages/operations/list.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsList(this.openNewRoute.bind(this));
+                },
+                scripts: [
+                    'jquery.min.js',
+                    'moment.js',
+                    'moment-ru-locale.js',
+                    'tempusdominus-bootstrap-4.min.js'
+                ],
+                styles: [
+                    'all.min.css',
+                    'tempusdominus-bootstrap-4.min.css'
+                ]
             },
             {
                 route: '/operations/create',
                 title: 'Доходы и расходы',
                 template: '/templates/pages/operations/create.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsCreate(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/operations/edit',
                 title: 'Доходы и расходы',
                 template: '/templates/pages/operations/edit.html',
-                useLayout: '/templates/layout.html'
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsEdit(this.openNewRoute.bind(this));
+                }
+            },
+            {
+                route: '/operations/delete',
+                load: () => {
+                    new OperationsDelete(this.openNewRoute.bind(this));
+                }
             }
         ];
     }
@@ -147,6 +223,12 @@ export class Router {
     async activateRoute(e, oldRoute) {
         if (oldRoute) {
             const currentRoute = this.routes.find((route) => route.route === oldRoute);
+            if (currentRoute.styles && currentRoute.styles.length > 0) {
+                currentRoute.styles.forEach((style) => {
+                    document.querySelector(`link[href='/css/${style}']`).remove();
+                });
+            }
+
             if (currentRoute.scripts && currentRoute.scripts.length > 0) {
                 currentRoute.scripts.forEach((script) => {
                     document.querySelector(`script[src='/js/${script}']`).remove();
@@ -162,6 +244,12 @@ export class Router {
         const newRoute = this.routes.find((route) => route.route === urlRoute);
 
         if (newRoute) {
+            if (newRoute.styles && newRoute.styles.length > 0) {
+                newRoute.styles.forEach((style) => {
+                    FileUtils.loadPageStyle('/css/' + style);
+                });
+            }
+
             if (newRoute.scripts && newRoute.scripts.length > 0) {
                 for (const script of newRoute.scripts) {
                     await FileUtils.loadPageScript('/js/' + script);
@@ -183,6 +271,7 @@ export class Router {
                         document.getElementById('profile-name').innerText = profileName.name + ' ' + profileName.lastName;
                     }
 
+                    new Layout(this.openNewRoute.bind(this));
                     this.activateMenuItem(newRoute);
                 }
                 contentBlock.innerHTML = await fetch(newRoute.template).then(response => response.text());

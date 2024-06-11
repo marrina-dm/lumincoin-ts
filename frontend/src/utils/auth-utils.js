@@ -42,13 +42,13 @@ export class AuthUtils {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    refreshToken: refreshToken,
+                    refreshToken: refreshToken
                 })
             });
 
             if (response && response.status === 200) {
                 const tokens = await response.json();
-                if (tokens && !tokens.error) {
+                if (tokens.tokens && !tokens.error) {
                     this.setAuthInfo(tokens.tokens.accessToken, tokens.tokens.refreshToken);
                     result = true;
                 }
