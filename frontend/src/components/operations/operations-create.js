@@ -39,6 +39,8 @@ export class OperationsCreate {
             {element: this.dateInput}
         ];
 
+        this.dateInput.max = new Date().toISOString().split('T')[0];
+
         document.getElementById('saveButton').addEventListener('click', this.saveOperation.bind(this));
     }
 

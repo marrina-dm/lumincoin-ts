@@ -35,6 +35,8 @@ export class OperationsEdit {
             {element: this.dateInput}
         ];
 
+        this.dateInput.max = new Date().toISOString().split('T')[0];
+
         this.init(id).then();
 
         this.typeSelect.addEventListener('change', e => this.getCategories(e.target.value));
