@@ -4,12 +4,14 @@ const CopyPlugin = require("copy-webpack-plugin");
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
-    entry: './src/app.js',
+    entry: './src/app.ts',
     mode: 'development',
+    devtool: 'inline-source-map',
     output: {
-        filename: 'app.js',
+        filename: 'app.ts',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
+        publicPath: '/',
+        clean: true
     },
     devServer: {
         static: {
@@ -45,7 +47,15 @@ module.exports = {
                     }
                 ],
             },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            }
         ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
         new HtmlWebpackPlugin({
