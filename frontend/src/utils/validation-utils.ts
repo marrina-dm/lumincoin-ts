@@ -13,7 +13,11 @@ export class ValidationUtils {
         return isValid;
     }
 
-    private static validateField(element: HTMLInputElement, options: OptionsType | undefined): boolean {
+    private static validateField(element: HTMLInputElement | null, options: OptionsType | undefined): boolean {
+        if (!element) {
+            return false;
+        }
+
         let condition: boolean = Boolean(element.value);
         if (options) {
             if (options.hasOwnProperty('pattern') && options.pattern) {

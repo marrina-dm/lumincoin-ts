@@ -56,61 +56,66 @@ export class OperationsList {
 
     private initCalendar(): void {
         if (this.calendarFromElement) {
-            $(this.calendarFromElement).datetimepicker({
-                format: 'L',
-                locale: 'ru',
-                useCurrent: false
-            });
+            $(this.calendarFromElement).datepicker($.extend({
+                    inline: true,
+                    changeYear: true,
+                    changeMonth: true,
+                    useCurrent: false,
+                    dateFormat: 'dd-mm-yy',
+                    onSelect: (dateText: string) => {
+                        this.linkFromElement!.innerText = dateText;
+                        $(this.calendarFromElement!).datepicker('hide');
+                        if (this.calendarToElement) {
+                            $(this.calendarToElement).datepicker('minDate', new Date(dateText));
+                            if (ValidationUtils.validateForm(this.validations)) {
+                                this.getOperations({
+                                    period: Period["interval"],
+                                    dateFrom: this.calendarFromElement!.value,
+                                    dateTo: this.calendarToElement!.value
+                                }).then();
+                            }
+                        }
+                    }
+                },
+                //$.datepicker.regional['ru']
+            ));
 
             if (this.linkFromElement) {
                 this.linkFromElement.addEventListener('click', () => {
-                    $(this.calendarFromElement!).datetimepicker('toggle');
-                });
-
-
-                $(this.calendarFromElement).on("change.datetimepicker", (e) => {
-                    this.linkFromElement!.innerText = moment(e.date).format('DD-MM-YYYY');
-                    $(this.calendarFromElement!).datetimepicker('hide');
-                    if (this.calendarToElement) {
-                        $(this.calendarToElement).datetimepicker('minDate', e.date);
-                        if (ValidationUtils.validateForm(this.validations)) {
-                            this.getOperations({
-                                period: Period["interval"],
-                                dateFrom: this.calendarFromElement!.value,
-                                dateTo: this.calendarToElement!.value
-                            }).then();
-                        }
-                    }
+                    $(this.calendarFromElement!).datepicker('toggle');
                 });
             }
         }
 
         if (this.calendarToElement) {
-            $(this.calendarToElement).datetimepicker({
-                format: 'L',
-                locale: 'ru',
-                useCurrent: false
-            });
+            $(this.calendarToElement).datepicker($.extend({
+                    inline: true,
+                    changeYear: true,
+                    changeMonth: true,
+                    useCurrent: false,
+                    dateFormat: 'dd-mm-yy',
+                    onSelect: (dateText: string) => {
+                        this.linkToElement!.innerText = dateText;
+                        $(this.calendarToElement!).datepicker('hide');
+                        if (this.calendarFromElement) {
+                            $(this.calendarFromElement).datepicker('maxDate', new Date(dateText));
+                            if (ValidationUtils.validateForm(this.validations)) {
+                                this.getOperations({
+                                    period: Period["interval"],
+                                    dateFrom: this.calendarFromElement!.value,
+                                    dateTo: this.calendarToElement!.value
+                                }).then();
+                            }
+                        }
+                    }
+                },
+                //$.datepicker.regional['ru']
+            ));
 
             if (this.linkToElement) {
                 this.linkToElement.addEventListener('click', () => {
-                    $(this.calendarToElement!).datetimepicker('toggle');
+                    $(this.calendarToElement!).datepicker('toggle');
                 })
-
-                $(this.calendarToElement).on("change.datetimepicker", (e) => {
-                    this.linkToElement!.innerText = moment(e.date).format('DD-MM-YYYY');
-                    $(this.calendarToElement!).datetimepicker('hide');
-                    if (this.calendarFromElement) {
-                        $(this.calendarFromElement).datetimepicker('maxDate', e.date);
-                        if (ValidationUtils.validateForm(this.validations)) {
-                            this.getOperations({
-                                period: Period["interval"],
-                                dateFrom: this.calendarFromElement!.value,
-                                dateTo: this.calendarToElement!.value
-                            }).then();
-                        }
-                    }
-                });
             }
         }
     }
@@ -143,10 +148,10 @@ export class OperationsList {
                     }
                 } else {
                     if (this.calendarFromElement) {
-                        $(this.calendarFromElement).datetimepicker('hide');
+                        $(this.calendarFromElement).datepicker('hide');
                     }
                     if (this.calendarToElement) {
-                        $(this.calendarToElement).datetimepicker('hide');
+                        $(this.calendarToElement).datepicker('hide');
                     }
                     if (this.linkFromElement) {
                         this.linkFromElement.disabled = true;

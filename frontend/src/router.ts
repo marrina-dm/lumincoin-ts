@@ -42,14 +42,11 @@ export class Router {
                 },
                 scripts: [
                     'jquery.min.js',
-                    'moment.js',
-                    'moment-ru-locale.js',
-                    'tempusdominus-bootstrap-4.min.js',
+                    'jquery-ui.min.js',
                     'chart.umd.js'
                 ],
                 styles: [
-                    'all.min.css',
-                    'tempusdominus-bootstrap-4.min.css'
+                    'all.min.css'
                 ]
             },
             {
@@ -152,13 +149,10 @@ export class Router {
                 },
                 scripts: [
                     'jquery.min.js',
-                    'moment.js',
-                    'moment-ru-locale.js',
-                    'tempusdominus-bootstrap-4.min.js'
+                    'jquery-ui.min.js'
                 ],
                 styles: [
-                    'all.min.css',
-                    'tempusdominus-bootstrap-4.min.css'
+                    'all.min.css'
                 ]
             },
             {
@@ -305,7 +299,7 @@ export class Router {
         const categoryCollapse: HTMLElement | null = document.getElementById("category-collapse");
         document.querySelectorAll('.sidebar .nav-link').forEach((item: Element) => {
             const href: string | null = item.getAttribute('href');
-            if (href) {
+            if (href !== null) {
                 if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
                     if (categoryElement && item.classList.contains('sub-category')) {
                         categoryElement.classList.remove('collapsed');
@@ -325,12 +319,17 @@ export class Router {
 
         if (categoryElement) {
             categoryElement.addEventListener('click', (e: MouseEvent) => {
+                (e.target as HTMLElement).classList.toggle('rounded-bottom-0');
+                (e.target as HTMLElement).classList.toggle('collapsed');
+                (e.target as HTMLElement).classList.toggle('aria-expanded');
+                if (categoryCollapse) {
+                    categoryCollapse.classList.toggle('show');
+                }
                 if ((e.target as HTMLElement).classList.contains('collapsed')) {
                     CommonUtils.unactivateLink(e.target as HTMLElement);
                 } else {
                     CommonUtils.activateLink(e.target as HTMLElement);
                 }
-                (e.target as HTMLElement).classList.toggle('rounded-bottom-0');
             });
         }
     }

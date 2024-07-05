@@ -1,6 +1,5 @@
 import {Chart, PieController, ArcElement, Legend, Colors, Tooltip} from "chart.js";
 import {AuthUtils} from "../utils/auth-utils";
-import moment from "moment/moment";
 import {ValidationUtils} from "../utils/validation-utils";
 import {OperationsService} from "../services/operations-service";
 import {ValidationType} from "../types/validation.type";
@@ -53,61 +52,66 @@ export class Dashboard {
 
     private initCalendar(): void {
         if (this.calendarFromElement) {
-            $(this.calendarFromElement).datetimepicker({
-                format: 'L',
-                locale: 'ru',
-                useCurrent: false
-            });
+            $(this.calendarFromElement).datepicker(/*$.extend({
+                    inline: true,
+                    changeYear: true,
+                    changeMonth: true,
+                    useCurrent: false,
+                    dateFormat: 'dd-mm-yy',
+                    onSelect: (dateText: string) => {
+                        this.linkFromElement!.innerText = dateText;
+                        $(this.calendarFromElement!).datepicker('hide');
+                        if (this.calendarToElement) {
+                            $(this.calendarToElement).datepicker('minDate', new Date(dateText));
+                            if (ValidationUtils.validateForm(this.validations)) {
+                                this.getOperations({
+                                    period: Period["interval"],
+                                    dateFrom: this.calendarFromElement!.value,
+                                    dateTo: this.calendarToElement!.value
+                                }).then();
+                            }
+                        }
+                    }
+                },
+                $.datepicker.regional['ru']
+            )*/);
 
             if (this.linkFromElement) {
                 this.linkFromElement.addEventListener('click', () => {
-                    $(this.calendarFromElement!).datetimepicker('toggle');
-                });
-
-
-                $(this.calendarFromElement).on("change.datetimepicker", (e) => {
-                    this.linkFromElement!.innerText = moment(e.date).format('DD-MM-YYYY');
-                    $(this.calendarFromElement!).datetimepicker('hide');
-                    if (this.calendarToElement) {
-                        $(this.calendarToElement).datetimepicker('minDate', e.date);
-                        if (ValidationUtils.validateForm(this.validations)) {
-                            this.getOperations({
-                                period: Period["interval"],
-                                dateFrom: this.calendarFromElement!.value,
-                                dateTo: this.calendarToElement!.value
-                            }).then();
-                        }
-                    }
+                    $(this.calendarFromElement!).datepicker('toggle');
                 });
             }
         }
 
         if (this.calendarToElement) {
-            $(this.calendarToElement).datetimepicker({
-                format: 'L',
-                locale: 'ru',
-                useCurrent: false
-            });
+            $(this.calendarToElement).datepicker($.extend({
+                    inline: true,
+                    changeYear: true,
+                    changeMonth: true,
+                    useCurrent: false,
+                    dateFormat: 'dd-mm-yy',
+                    onSelect: (dateText: string) => {
+                        this.linkToElement!.innerText = dateText;
+                        $(this.calendarToElement!).datepicker('hide');
+                        if (this.calendarFromElement) {
+                            $(this.calendarFromElement).datepicker('maxDate', new Date(dateText));
+                            if (ValidationUtils.validateForm(this.validations)) {
+                                this.getOperations({
+                                    period: Period["interval"],
+                                    dateFrom: this.calendarFromElement!.value,
+                                    dateTo: this.calendarToElement!.value
+                                }).then();
+                            }
+                        }
+                    }
+                },
+                //$.datepicker.regional['ru']
+            ));
 
             if (this.linkToElement) {
                 this.linkToElement.addEventListener('click', () => {
-                    $(this.calendarToElement!).datetimepicker('toggle');
+                    $(this.calendarToElement!).datepicker('toggle');
                 })
-
-                $(this.calendarToElement).on("change.datetimepicker", (e) => {
-                    this.linkToElement!.innerText = moment(e.date).format('DD-MM-YYYY');
-                    $(this.calendarToElement!).datetimepicker('hide');
-                    if (this.calendarFromElement) {
-                        $(this.calendarFromElement).datetimepicker('maxDate', e.date);
-                        if (ValidationUtils.validateForm(this.validations)) {
-                            this.getOperations({
-                                period: Period["interval"],
-                                dateFrom: this.calendarFromElement!.value,
-                                dateTo: this.calendarToElement!.value
-                            }).then();
-                        }
-                    }
-                });
             }
         }
     }
@@ -196,10 +200,10 @@ export class Dashboard {
                     }
                 } else {
                     if (this.calendarFromElement) {
-                        $(this.calendarFromElement).datetimepicker('hide');
+                        $(this.calendarFromElement).datepicker('hide');
                     }
                     if (this.calendarToElement) {
-                        $(this.calendarToElement).datetimepicker('hide');
+                        $(this.calendarToElement).datepicker('hide');
                     }
                     if (this.linkFromElement) {
                         this.linkFromElement.disabled = true;
@@ -248,6 +252,7 @@ export class Dashboard {
             categories = categories.filter((item: string, i: number, ar: string[]) => ar.indexOf(item) === i);
 
             if (element) {
+
                 element.data.labels = categories;
 
 
@@ -258,6 +263,12 @@ export class Dashboard {
 
 
                 element.data.datasets[0].data = amount;
+                element.update();
+            }
+        } else {
+            if (element) {
+                element.data.labels = ['Нет данных'];
+                element.data.datasets[0].data = [1];
                 element.update();
             }
         }

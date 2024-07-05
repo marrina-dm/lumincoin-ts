@@ -67,9 +67,8 @@ export class IncomeEdit {
                     response.redirect ? this.openNewRoute(response.redirect).then() : null;
                     return;
                 }
-
-                return this.openNewRoute('/income');
             }
+            return this.openNewRoute('/income');
         }
     }
 }

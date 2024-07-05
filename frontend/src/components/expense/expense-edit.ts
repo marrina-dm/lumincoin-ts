@@ -67,9 +67,8 @@ export class ExpenseEdit {
                     response.redirect ? this.openNewRoute(response.redirect).then() : null;
                     return;
                 }
-
-                return this.openNewRoute('/expense');
             }
+            return this.openNewRoute('/expense');
         }
     }
 }
