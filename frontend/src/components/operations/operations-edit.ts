@@ -7,8 +7,8 @@ import {OperationsService} from "../../services/operations-service";
 import {ValidationType} from "../../types/validation.type";
 import {OperationResponseType, OperationsInfoType, OperationType} from "../../types/operations-response.type";
 import {CategoriesResponseType} from "../../types/categories-response.type";
-import {OperationChangedDataType} from "../../types/operation-changed-data.type";
 import {OperationsEnum} from "../../types/operations.enum";
+import {OperationBodyType} from "../../types/operation-body.type";
 
 export class OperationsEdit {
     private typeSelect: HTMLInputElement | null = null;
@@ -136,22 +136,13 @@ export class OperationsEdit {
         e.preventDefault();
 
         if (ValidationUtils.validateForm(this.validations)) {
-            const changedData: OperationChangedDataType = {};
-            if (parseInt(this.amountInput!.value) !== this.operationOriginalData!.amount) {
-                changedData.amount = parseInt(this.amountInput!.value);
-            }
-            if (this.typeSelect!.value !== this.operationOriginalData!.type) {
-                changedData.type = OperationsEnum[this.typeSelect!.value as OperationsEnum];
-            }
-            if (this.categorySelect!.innerText !== this.operationOriginalData!.category) {
-                changedData.category_id = parseInt(this.categorySelect!.value);
-            }
-            if (this.dateInput!.value !== this.operationOriginalData!.date) {
-                changedData.date = this.dateInput!.value;
-            }
-            if (this.commentInput!.value !== this.operationOriginalData!.comment) {
-                changedData.comment = this.commentInput!.value;
-            }
+            const changedData: OperationBodyType = {
+                amount: parseInt(this.amountInput!.value),
+                type: OperationsEnum[this.typeSelect!.value as OperationsEnum],
+                category_id: parseInt(this.categorySelect!.value),
+                date: this.dateInput!.value,
+                comment: this.commentInput!.value
+            };
 
             if (Object.keys(changedData).length > 0) {
                 const response: OperationType = await OperationsService.updateOperation(this.operationOriginalData!.id.toString(), changedData);

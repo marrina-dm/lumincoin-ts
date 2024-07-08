@@ -10,9 +10,7 @@ import {OperationsInfoType, OperationsResponseType} from "../../types/operations
 
 export class OperationsList {
     private calendarFromElement: HTMLInputElement | null = null;
-    private linkFromElement: HTMLLinkElement | null = null;
     private calendarToElement: HTMLInputElement | null = null;
-    private linkToElement: HTMLLinkElement | null = null;
     readonly validations: ValidationType[];
     private popupElement: HTMLElement | null = null;
     private confirmBtn: HTMLLinkElement | null = null;
@@ -46,97 +44,65 @@ export class OperationsList {
 
     private findElements(): void {
         this.calendarFromElement = document.getElementById("calendar-from") as HTMLInputElement;
-        this.linkFromElement = document.getElementById('from') as HTMLLinkElement;
         this.popupElement = document.getElementById('delete-popup');
         this.confirmBtn = document.getElementById('confirm-delete') as HTMLLinkElement;
         this.cancelBtn = document.getElementById('cancel-delete');
         this.calendarToElement = document.getElementById("calendar-to") as HTMLInputElement;
-        this.linkToElement = document.getElementById('to') as HTMLLinkElement;
     }
 
     private initCalendar(): void {
         if (this.calendarFromElement) {
-            $(this.calendarFromElement).datepicker($.extend({
-                    inline: true,
-                    changeYear: true,
-                    changeMonth: true,
-                    useCurrent: false,
-                    dateFormat: 'dd-mm-yy',
-                    onSelect: (dateText: string) => {
-                        this.linkFromElement!.innerText = dateText;
-                        $(this.calendarFromElement!).datepicker('hide');
-                        if (this.calendarToElement) {
-                            $(this.calendarToElement).datepicker('minDate', new Date(dateText));
-                            if (ValidationUtils.validateForm(this.validations)) {
-                                this.getOperations({
-                                    period: Period["interval"],
-                                    dateFrom: this.calendarFromElement!.value,
-                                    dateTo: this.calendarToElement!.value
-                                }).then();
-                            }
-                        }
-                    }
-                },
-                //$.datepicker.regional['ru']
-            ));
+            this.calendarFromElement.max = new Date().toISOString().split('T')[0];
 
-            if (this.linkFromElement) {
-                this.linkFromElement.addEventListener('click', () => {
-                    $(this.calendarFromElement!).datepicker('toggle');
-                });
-            }
+            this.calendarFromElement.addEventListener('change', () => {
+                if (this.calendarFromElement && this.calendarToElement) {
+                    this.calendarToElement.min = this.calendarFromElement.value;
+                    if (ValidationUtils.validateForm(this.validations)) {
+                        this.getOperations({
+                            period: Period["interval"],
+                            dateFrom: this.calendarFromElement!.value,
+                            dateTo: this.calendarToElement!.value
+                        }).then();
+                    }
+                }
+            });
         }
 
         if (this.calendarToElement) {
-            $(this.calendarToElement).datepicker($.extend({
-                    inline: true,
-                    changeYear: true,
-                    changeMonth: true,
-                    useCurrent: false,
-                    dateFormat: 'dd-mm-yy',
-                    onSelect: (dateText: string) => {
-                        this.linkToElement!.innerText = dateText;
-                        $(this.calendarToElement!).datepicker('hide');
-                        if (this.calendarFromElement) {
-                            $(this.calendarFromElement).datepicker('maxDate', new Date(dateText));
-                            if (ValidationUtils.validateForm(this.validations)) {
-                                this.getOperations({
-                                    period: Period["interval"],
-                                    dateFrom: this.calendarFromElement!.value,
-                                    dateTo: this.calendarToElement!.value
-                                }).then();
-                            }
-                        }
-                    }
-                },
-                //$.datepicker.regional['ru']
-            ));
+            this.calendarToElement.max = new Date().toISOString().split('T')[0];
 
-            if (this.linkToElement) {
-                this.linkToElement.addEventListener('click', () => {
-                    $(this.calendarToElement!).datepicker('toggle');
-                })
-            }
+            this.calendarToElement.addEventListener('change', () => {
+                if (this.calendarFromElement && this.calendarToElement) {
+                    this.calendarFromElement.max = this.calendarToElement.value;
+                    if (ValidationUtils.validateForm(this.validations)) {
+                        this.getOperations({
+                            period: Period["interval"],
+                            dateFrom: this.calendarFromElement!.value,
+                            dateTo: this.calendarToElement!.value
+                        }).then();
+                    }
+                }
+            });
         }
     }
 
     private initFilter(): void {
-        if (this.linkFromElement) {
-            this.linkFromElement.disabled = true;
+        if (this.calendarFromElement) {
+            this.calendarFromElement.disabled = true;
         }
 
-        if (this.linkToElement) {
-            this.linkToElement.disabled = true;
+        if (this.calendarToElement) {
+            this.calendarToElement.disabled = true;
         }
 
         document.querySelectorAll('input[type="radio"][name="filter"]').forEach((radio: Element) => {
             radio.addEventListener('change', () => {
                 if ((radio as HTMLInputElement).checked && radio.id === 'interval') {
-                    if (this.linkFromElement) {
-                        this.linkFromElement.disabled = false;
+                    if (this.calendarFromElement) {
+                        this.calendarFromElement.disabled = false;
                     }
-                    if (this.linkToElement) {
-                        this.linkToElement.disabled = false;
+                    if (this.calendarToElement) {
+                        this.calendarToElement.disabled = false;
                     }
 
                     if (ValidationUtils.validateForm(this.validations)) {
@@ -148,16 +114,10 @@ export class OperationsList {
                     }
                 } else {
                     if (this.calendarFromElement) {
-                        $(this.calendarFromElement).datepicker('hide');
+                        this.calendarFromElement.disabled = true;
                     }
                     if (this.calendarToElement) {
-                        $(this.calendarToElement).datepicker('hide');
-                    }
-                    if (this.linkFromElement) {
-                        this.linkFromElement.disabled = true;
-                    }
-                    if (this.linkToElement) {
-                        this.linkToElement.disabled = true;
+                        this.calendarToElement.disabled = true;
                     }
 
                     this.getOperations({period: Period[(radio.id) as Period]}).then();

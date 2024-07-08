@@ -41,8 +41,6 @@ export class Router {
                     new Dashboard(this.openNewRoute.bind(this));
                 },
                 scripts: [
-                    'jquery.min.js',
-                    'jquery-ui.min.js',
                     'chart.umd.js'
                 ],
                 styles: [
@@ -147,10 +145,6 @@ export class Router {
                 load: () => {
                     new OperationsList(this.openNewRoute.bind(this));
                 },
-                scripts: [
-                    'jquery.min.js',
-                    'jquery-ui.min.js'
-                ],
                 styles: [
                     'all.min.css'
                 ]

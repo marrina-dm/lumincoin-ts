@@ -14,7 +14,9 @@ module.exports = {
         clean: true
     },
     devServer: {
-        static: '.dist',
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
         compress: true,
         port: 9000,
         historyApiFallback: true
@@ -66,10 +68,9 @@ module.exports = {
                 {from: "./node_modules/@fortawesome/fontawesome-free/webfonts", to: "webfonts"},
                 {from: "./node_modules/@fortawesome/fontawesome-free/css/all.min.css", to: "css"},
                 {from: "./node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css", to: "css"},
-                {from: "./node_modules/jquery/dist/jquery.min.js", to: "js"},
-                {from: "./node_modules/jquery-ui/dist/jquery-ui.min.js", to: "js"},
                 {from: "./node_modules/bootstrap/dist/css/bootstrap.min.css", to: "css"},
                 {from: "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js", to: "js"},
+                {from: "./node_modules/@types/bootstrap/js/dist/dropdown.d.ts", to: "js"},
                 {from: "./node_modules/chart.js/dist/chart.umd.js", to: "js"},
             ],
         })
